@@ -1,0 +1,139 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+.game-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    width: 600px;
+    height: 600px;
+    border: 5px solid #333;
+    background-color: #c8e6c9;
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.cell span {
+    padding: 2px 4px;
+}
+
+/* Pewarnaan selang-seling */
+.cell:nth-child(odd) {
+    background-color: #a5d6a7;
+}
+
+/* Definisi Ular dan Tangga */
+.snake-head { background-color: #ffcdd2; } /* Merah muda untuk kepala ular */
+.ladder-start { background-color: #c5cae9; } /* Biru muda untuk awal tangga */
+
+.player {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+}
+
+#player1 {
+    background-color: #1e88e5; /* Biru */
+    left: 5px;
+}
+
+#player2 {
+    background-color: #e53935; /* Merah */
+    left: 15px; /* Sedikit geser agar tidak tumpang tindih */
+}
+
+.controls {
+    width: 250px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+#turn-info {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.dice-area {
+    margin-bottom: 20px;
+}
+
+#dice-result {
+    font-size: 4em;
+    margin-bottom: 10px;
+}
+
+#roll-dice-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#roll-dice-btn:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+#roll-dice-btn:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+.message-area {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e3f2fd;
+    border-left: 5px solid #2196F3;
+    min-height: 50px;
+}
+
+#message {
+    margin: 0;
+    color: #333;
+}

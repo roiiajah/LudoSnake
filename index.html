@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Ular Tangga</title>
+    
+    <link rel="icon" href="LudoSnake-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="LudoSnake-192.png">
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50"/>
+
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <h1>Ular Tangga</h1>
+
+    <div class="game-container">
+        <div id="game-board"></div>
+        <div class="controls">
+            <div id="turn-info">Giliran Pemain 1</div>
+            <div class="dice-area">
+                <div id="dice-result">🎲</div>
+                <button id="roll-dice-btn">Kocok Dadu</button>
+            </div>
+            <div class="message-area">
+                <p id="message">Selamat datang! Klik "Kocok Dadu" untuk memulai.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('ServiceWorker berhasil didaftarkan: ', registration.scope);
+            })
+            .catch(error => {
+              console.log('Pendaftaran ServiceWorker gagal: ', error);
+            });
+        });
+      }
+    </script>
+</body>
+</html>
