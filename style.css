@@ -15,32 +15,39 @@ h1 {
 
 .game-container {
     display: flex;
-    gap: 30px;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
 }
 
 #game-board {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    width: 600px;
-    height: 600px;
+    width: 90vw;
+    height: 90vw;
+    max-width: 600px;
+    max-height: 600px;
     border: 5px solid #333;
     background-color: #c8e6c9;
 }
 
 .cell {
-    width: 60px;
-    height: 60px;
-    border: 1px solid #aaa;
+   border: 1px solid #aaa;
     box-sizing: border-box;
     position: relative;
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
-    font-size: 14px;
+    font-size: 3vw; /* Buat ukuran font responsif */
     font-weight: bold;
     color: #555;
 }
+
+@media (min-width: 600px) {
+    .cell {
+        font-size: 14px;
+    }
 
 .cell span {
     padding: 2px 4px;
@@ -76,11 +83,12 @@ h1 {
 
 #player2 {
     background-color: #e53935; /* Merah */
-    left: 15px; /* Sedikit geser agar tidak tumpang tindih */
+    left: 15px; 
 }
 
 .controls {
-    width: 250px;
+    width: 80vw; 
+    max-width: 300px; 
     padding: 20px;
     background-color: white;
     border-radius: 8px;
@@ -136,4 +144,5 @@ h1 {
 #message {
     margin: 0;
     color: #333;
+}
 }
