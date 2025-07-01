@@ -33,21 +33,17 @@ h1 {
 }
 
 .cell {
-   border: 1px solid #aaa;
+    border: 1px solid #aaa;
     box-sizing: border-box;
     position: relative;
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
-    font-size: 3vw; /* Buat ukuran font responsif */
+    font-size: 3vw; 
     font-weight: bold;
     color: #555;
 }
 
-@media (min-width: 600px) {
-    .cell {
-        font-size: 14px;
-    }
 
 .cell span {
     padding: 2px 4px;
@@ -145,4 +141,16 @@ h1 {
     margin: 0;
     color: #333;
 }
+
+#install-icon {
+    display: none; /* Sembunyikan ikon secara default */
+    cursor: pointer;
+    margin: 20px auto 0; /* Posisikan di tengah dengan margin atas */
+    width: 64px;
+    height: 64px;
+    transition: transform 0.2s ease-in-out; /* Efek transisi saat di-hover */
+}
+
+#install-icon:hover {
+    transform: scale(1.1); /* Sedikit membesar saat kursor di atasnya */
 }

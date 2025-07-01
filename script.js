@@ -4,9 +4,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const turnInfo = document.getElementById('turn-info');
     const message = document.getElementById('message');
     const diceResult = document.getElementById('dice-result');
+    const installIcon = document.getElementById('install-icon'); 
+
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+       
+        e.preventDefault();
+       
+        deferredPrompt = e;
+     
+        installIcon.style.display = 'block';
+    });
+    installIcon.addEventListener('click', (e) => {
+     
+        installIcon.style.display = 'none';
+       
+        deferredPrompt.prompt();
+      
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('Pengguna menyetujui instalasi aplikasi');
+            } else {
+                console.log('Pengguna menolak instalasi aplikasi');
+            }
+            deferredPrompt = null;
+        });
+    });
+
 
     const boardSize = 100;
     let player1Position = 0;
+    // ... (sisa kode script.js Anda tidak perlu diubah) ...
     let player2Position = 0;
     let currentPlayer = 1; // 1 for user, 2 for AI
     let gameActive = true;
