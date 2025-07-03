@@ -1,156 +1,196 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 20px;
+:root {
+    --board-bg: #f0f8ff;
+    --player1-color: #ff4136;
+    --player2-color: #0074d9;
+    --snake-head: #d9534f;
+    --ladder-start: #5cb85c;
+    --cell-border: #ccc;
+    --text-color: #333;
 }
 
-h1 {
-    color: #333;
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+    color: var(--text-color);
 }
 
 .game-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    width: 100%;
+    width: 95%;
+    max-width: 600px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+h1 {
+    color: var(--text-color);
 }
 
 #game-board {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    width: 90vw;
-    height: 90vw;
-    max-width: 600px;
-    max-height: 600px;
-    border: 5px solid #333;
-    background-color: #c8e6c9;
+    grid-template-rows: repeat(10, 1fr);
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Makes the board always square */
+    border: 2px solid #333;
+    margin: 20px auto;
+    position: relative;
+    background-color: var(--board-bg);
 }
 
 .cell {
-    border: 1px solid #aaa;
-    box-sizing: border-box;
-    position: relative;
+    border: 1px solid var(--cell-border);
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: flex-start;
-    font-size: 3vw; 
+    font-size: 0.8em;
     font-weight: bold;
-    color: #555;
+    position: relative;
 }
-
 
 .cell span {
-    padding: 2px 4px;
+    padding: 2px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 3px;
 }
 
-/* Pewarnaan selang-seling */
-.cell:nth-child(odd) {
-    background-color: #a5d6a7;
-}
-
-/* Definisi Ular dan Tangga */
-.snake-head { background-color: #ffcdd2; } /* Merah muda untuk kepala ular */
-.ladder-start { background-color: #c5cae9; } /* Biru muda untuk awal tangga */
+.snake-head { background-color: var(--snake-head); }
+.ladder-start { background-color: var(--ladder-start); }
 
 .player {
-    width: 40px;
-    height: 40px;
+    width: 50%;
+    height: 50%;
     border-radius: 50%;
     position: absolute;
-    bottom: 5px;
     transition: all 0.5s ease-in-out;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    color: white;
+    z-index: 10;
 }
 
 #player1 {
-    background-color: #1e88e5; /* Biru */
-    left: 5px;
+    background-color: var(--player1-color);
+    border: 2px solid darkred;
 }
 
 #player2 {
-    background-color: #e53935; /* Merah */
-    left: 15px; 
+    background-color: var(--player2-color);
+    border: 2px solid darkblue;
+    /* Offset to be visible if on the same cell */
+    transform: translate(40%, 40%);
 }
 
 .controls {
-    width: 80vw; 
-    max-width: 300px; 
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    text-align: center;
+    margin-top: 20px;
 }
 
-#turn-info {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #444;
-}
-
-.dice-area {
-    margin-bottom: 20px;
-}
-
-#dice-result {
-    font-size: 4em;
-    margin-bottom: 10px;
+.controls p {
+    font-size: 1.2em;
+    margin: 10px 0;
 }
 
 #roll-dice-btn {
-    width: 100%;
-    padding: 15px;
+    padding: 12px 25px;
     font-size: 1.2em;
     cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
     border: none;
+    background-color: #4A90E2;
+    color: white;
     border-radius: 5px;
     transition: background-color 0.3s;
 }
 
+#roll-dice-btn:hover {
+    background-color: #357ABD;
+}
+
 #roll-dice-btn:disabled {
-    background-color: #aaa;
+    background-color: #999;
     cursor: not-allowed;
 }
 
-#roll-dice-btn:hover:not(:disabled) {
-    background-color: #45a049;
-}
-
-.message-area {
+#winner-message {
     margin-top: 20px;
-    padding: 10px;
-    background-color: #e3f2fd;
-    border-left: 5px solid #2196F3;
-    min-height: 50px;
+    font-size: 1.5em;
+    color: var(--ladder-start);
+    font-weight: bold;
 }
 
-#message {
-    margin: 0;
-    color: #333;
-}
-
-#install-icon {
-    display: none; /* Sembunyikan ikon secara default */
+#winner-message button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
     cursor: pointer;
-    margin: 20px auto 0; /* Posisikan di tengah dengan margin atas */
-    width: 64px;
-    height: 64px;
-    transition: transform 0.2s ease-in-out; /* Efek transisi saat di-hover */
 }
 
-#install-icon:hover {
-    transform: scale(1.1); /* Sedikit membesar saat kursor di atasnya */
+.hidden {
+    display: none;
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+    h1 { font-size: 1.5em; }
+    .cell { font-size: 0.6em; }
+    .controls p { font-size: 1em; }
+    #roll-dice-btn { padding: 10px 20px; font-size: 1em; }
+}
+
+/* Tambahkan di akhir file style.css */
+.mode-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.mode-buttons button {
+    padding: 15px 25px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#pvc-btn {
+    background-color: #5cb85c;
+    color: white;
+}
+
+#pvc-btn:hover {
+    background-color: #4cae4c;
+    transform: translateY(-2px);
+}
+
+#pvp-btn {
+    background-color: #4A90E2;
+    color: white;
+}
+
+#pvp-btn:hover {
+    background-color: #357ABD;
+    transform: translateY(-2px);
+}
+/* ... CSS Anda yang sudah ada ... */
+
+#install-btn {
+    background-color: #f1c40f; /* Warna kuning */
+    color: white;
+    margin-top: 15px; /* Memberi sedikit jarak */
+    padding: 15px 25px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#install-btn:hover {
+    background-color: #f39c12;
+    transform: translateY(-2px);
 }
