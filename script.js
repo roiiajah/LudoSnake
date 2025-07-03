@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modeSelection.classList.remove('hidden');
     gameContainer.classList.add('hidden');
 
-    // === PERBAIKAN UNTUK KOMPATIBILITAS MOBILE ===
+    // === KOMPATIBILITAS MOBILE ===
     // Fungsi ini dipanggil saat mode dipilih untuk menghindari duplikasi kode.
     const handleModeSelection = (selectedMode) => {
         // Mencegah fungsi dipanggil dua kali jika 'click' dan 'touchstart' keduanya aktif
